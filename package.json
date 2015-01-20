@@ -1,0 +1,22 @@
+{
+  "name": "ChoppedCode",
+  "version": "1.0.0",
+  "description": "This is an app that randomly generates a basket of modules/frameworks that has be to utilized by your project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terimyaki/choppedCode.git"
+  },
+  "author": "terimyaki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terimyaki/choppedCode/issues"
+  },
+  "homepage": "https://github.com/terimyaki/choppedCode",
+  "dependencies": {
+    "request": "^2.51.0"
+  }
+}
