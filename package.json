@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/terimyaki/choppedCode",
   "dependencies": {
+    "cheerio": "^0.18.0",
     "request": "^2.51.0"
   }
 }
