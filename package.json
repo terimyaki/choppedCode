@@ -2,9 +2,10 @@
   "name": "ChoppedCode",
   "version": "1.0.0",
   "description": "This is an app that randomly generates a basket of modules/frameworks that has be to utilized by your project.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,10 @@
   "homepage": "https://github.com/terimyaki/choppedCode",
   "dependencies": {
     "cheerio": "^0.18.0",
+    "express": "^4.12.2",
+    "handlebars": "^3.0.0",
+    "morgan": "^1.5.1",
     "request": "^2.51.0"
-  }
+  },
+  "devDependencies": {}
 }
