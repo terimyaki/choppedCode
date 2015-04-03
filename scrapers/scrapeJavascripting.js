@@ -52,19 +52,18 @@ function poolLinks(linkObj){
 				var content = $('#content');
 				if(content.children('h2') > 0){
 					return listOfLinks;
-				} else {
-					var list = content.children('ul').children('li');
-					list.each(function(){
-						var obj = {};
-						obj.name = $(this).find('a').text();
-						obj.link = createDirect($(this).find('a').attr('href'));
-						obj.description = $(this).find('p').text();
-						obj.groupName = linkObj.groupName;
-						obj.groupLink = linkObj.groupLink;
-						listOfLinks.push(obj);
-					});
-					return listOfLinks;
 				}
+				var list = content.children('ul').children('li');
+				list.each(function(){
+					var obj = {};
+					obj.name = $(this).find('a').text();
+					obj.link = createDirect($(this).find('a').attr('href'));
+					obj.description = $(this).find('p').text();
+					obj.groupName = linkObj.groupName;
+					obj.groupLink = linkObj.groupLink;
+					listOfLinks.push(obj);
+				});
+				return listOfLinks;
 			}).catch(function(e){
 				throw new Error(e);
 			});
@@ -82,11 +81,6 @@ function createDirect(part){
 	return 'https://www.javascripting.com' + part;
 }
 
-// scrapeGroupSet();
-// scrapeGroup({ name: 'Application Tools - Frameworks',
-//     link: 'https://www.javascripting.com/application-tools/frameworks/' });
-// scrapeLink('https://www.javascripting.com/application-tools/frameworks/?p=2');
-
 var scrapeJavascripting = function(){
 	return request('https://www.javascripting.com').spread(function(response, body){
 			return scrapeMain(body);
@@ -99,6 +93,7 @@ var scrapeJavascripting = function(){
 				return poolLinks(el);
 			});
 		}).then(function(links){
+			console.log('Finished scraping Javascripting.com...');
 			return __.flatten(links);
 		})
 		.catch(function(err){
@@ -106,4 +101,4 @@ var scrapeJavascripting = function(){
 		});
 };
 
-module.exports = scrapeJavascripting;
+module.exports = scrapeJavascripting();

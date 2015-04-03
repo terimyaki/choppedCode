@@ -1,64 +1,73 @@
-//Scraping www.for list of available Javascript frameworks
-var request = require("request");
-var cheerio = require("cheerio");
+//Scraping www.programmableweb.com for list of available Javascript frameworks
+var Promise = require('bluebird');
+var request = Promise.promisify(require('request'));
+var cheerio = require('cheerio');
+var __ = require('underscore-contrib');
 
-var moveToNextPage = function (){
-	var pageNumber = 1;
-	var listLinks = [];
-	var paginationLast = "»";
+function getNumPages(){
+	return request('http://www.programmableweb.com/apis/directory').spread(function(response, body){
+		var pagesList = [];
+		$ = cheerio.load(body);
 
-	var checkIfLast = function(elText){
-		return elText === "»";
-	};
-	
-	var scrape = function(link){
-		var list = [];
-		request(link, function(error, response, htmlText){
-			if (!error && response.statusCode == 200) {
-	   			$ = cheerio.load(htmlText);
-	   			paginationLast = $("div.pagination ul li").last().text();
-	   			console.log(paginationLast);
-	   			console.log(paginationLast === "»");
-	   			console.log(checkIfLast(paginationLast));
-	   			//Get list of data items of all group types and links: ul id is "filter-sidebar"
+		var pages = parseInt($('.pagination .pager-next').text());
+		for(var i = 0; i < pages; i++){
+			pagesList.push(createPageLink(i));
+		}
 
-		   		$("#item-list li").each(function(index){
-		  			var self = $(this);
-	   				var name = self.find("a").text();
-	   				var link = "https://www.javascripting.com" + self.find("a").attr("href");
-	   				var description = self.find("p").text();
-	   				var linkOption = new Option(name, link, description);
-	   				list.push(linkOption);
-				});
-				pageNumber++;
-	   			return list;
-	   		}
-		});
-	};
+		return pagesList;
 
-};
-
-console.log(moveToNextPage());
-/*	var setLinks = scrape('https://www.javascripting.com/?p=' + pageNumber);
-	listLinks = listLinks.concat(setLinks);
-
-	console.log(checkIfLast(paginationLast));
-
-	console.log(listLinks);
-	// while()
-	// var linkArray = [];
-	// iteratorFunc(link, scrapFunc);
-	// linkArray = linkArray.concat();
-	// return linkArray;
-};
-
-moveToNextPage();
-*/
-
-function Option(name, link, description, groupName, groupLink){
-	this.name = name;
-	this.link = link;
-	this.description = description;
-	this.groupName = groupName || null;
-	this.groupLink = groupLink || null;
+	}).catch(function(e){
+		throw new Error(e);
+	});
 }
+
+function poolLinks(link){
+	return request(link).spread(function(response, body){
+		var listOfLinks = [];
+		$ = cheerio.load(body);
+
+		var content = $('.view-id-search_apis');
+		//console.log(content.html());
+		if(content.children('div').attr('class') === 'view-empty'){
+			return listOfLinks;
+		}
+		var list = content.find('tbody').children('tr');
+		list.each(function(){
+			var childList = $(this).children('td');
+			var obj = {};
+			obj.name = childList.eq(0).find('a').text();
+			obj.link = createLink(childList.eq(0).find('a').attr('href'));
+			obj.description = rmNewLinesTrimWS(childList.eq(1).text());
+			obj.groupName = rmNewLinesTrimWS(childList.eq(2).find('a').text());
+			listOfLinks.push(obj);
+		});
+		return listOfLinks;
+	}).catch(function(e){
+		throw new Error(e);
+	});
+}
+
+function rmNewLinesTrimWS(str){
+	return str.replace('/\n/g', '').trim();
+}
+
+function createPageLink(num){
+	return 'http://www.programmableweb.com/apis/directory?page=' + num;
+}
+
+function createLink(partial){
+	return 'http://www.programmableweb.com' + partial;
+}
+
+function scrapeProgWeb(){
+	return getNumPages().map(poolLinks)
+	.then(function(arr){
+		console.log('Finished scraping Programmable Web...');
+		return __.flatten(arr);
+	})
+	.catch(function(e){
+		throw new Error(e);
+	});
+}
+
+module.exports = scrapeProgWeb();
