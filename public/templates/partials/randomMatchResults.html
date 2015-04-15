@@ -1,0 +1,39 @@
+<div>
+	<div class='divider'></div>
+	<div id='theme' class='section'>
+		<div class='row center-align'>
+			<h3>Main Theme</h3>
+			<div class="col s12 m10 offset-m1 center-align">
+	          <div class="card cyan darken-1">
+	            <div class="card-content white-text" ng-if='theme'>
+	              <span class="card-title">{{theme.name}}</span>
+	              <div><a ng-href='{{theme.url}}' class= 'black-text' target='_blank'>{{theme.url}}</a></div>
+	              <p>
+	              	<strong>Subscribers :  </strong>{{theme.subscribers}}
+	              </p>
+	              <p>{{theme.description}}</p>
+	            </div>
+	            <div class="card-content white-text" ng-if='!theme'>
+	              <span class="card-title">No Theme Selected</span>
+	            </div>
+	          </div>
+	        </div>
+		</div>
+	</div>
+	<div id='criteria' class='row center-align'>
+		<h3>Criterias</h3>
+		<div ng-repeat='criteria in criterias'>
+			<div class='card cyan darken-2 '>
+				<div class='card-content white-text center-align'>
+					<span class='card-title'>{{criteria.data.name}}</span>
+					<div><a ng-href='{{criteria.data.link}}' class='white-text' target='_blank'>{{criteria.data.link}}</a></div>
+					<p class='black-text'>{{criteria.data.description}}</p>
+					<p>{{criteria.collection | uppercase}} - {{criteria.data.groupName}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='row center-align'>
+		<button class='btn'>Confirm Match</button>
+	</div>
+</div>

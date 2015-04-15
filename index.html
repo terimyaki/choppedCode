@@ -3,12 +3,71 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Chopped Code</title>
-		<link rel="stylesheet" href="bootstrap-3.3.2/css/bootstrap.min.css">
-
+		<link rel="stylesheet" type="text/css" href="/materialize/dist/css/materialize.min.css">
+		<base href='/' />
 	</head>
-	<body>
-		<p><a href="results">Hello</a></p>
+	<body ng-app="ChoppedCode">
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper teal">
+					<a href="#" class="brand-logo">Chopped Code</a>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="" ui-sref="random">Random</a></li>
+						<li><a class="">Created</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div ng-controller="MainController" class="">
+			<div class="container">
+				<div id='loaderModal' class='modal'>
+					<div class='modal-content'>
+						<loader>Haha...</loader>
+					</div>
+				</div>
+				<ui-view></ui-view>
+			<!-- 
+			<div ng-controller="GenerateNumSubController">
+				<input type="number" min="1" max="7" ng-model='min'>
+				<input type="number" min="1" max="7" ng-model='max'>
+				<button ng-click="generateNumItems()">Generate a Number of Items</button>
+			</div>
+			<div>
+				<input type="text" ng-model="list">
+				<button ng-click="getLibraryList(list)">Get Library List</button>
+			</div>
+			<div>
+				<input type="text" ng-model="list">
+				<button ng-click="getApiList(list)">Get Api List</button>
+			</div>
+
+			<div>
+				<input type="text" ng-model="name">
+				<button ng-click="getLibraryOne(name)">Get a Library</button>
+			</div>
+			<div>
+				<input type="text" ng-model="name">
+				<button ng-click="getApiOne(name)">Get an Api</button>
+			</div>
+
+			<button ng-click="getApiTypes()">Generate API type</button>
+			<button ng-click="getLibraryTypes()">Generate Library type</button>
+			<button ng-click="getThemes()">Generate Theme</button>
+			
+		</div> -->
 
 		<!-- load the scripts to the file-->
+		<script src="/angular/angular.min.js"></script>
+		<script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/controllers/mainController.js"></script>
+		<script src="/js/controllers/RandomMatchController.js"></script>
+		<script src="/js/controllers/ConfirmMatchController.js"></script>
+		<script src="/js/factories/DataFactory.js"></script>
+		<script src="/js/factories/MatchFactory.js"></script>
+		<script src="/js/directives/loader/loader.js"></script>
+		<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+		<script src="materialize/dist/js/materialize.min.js"></script>
 	</body>
 </html>

@@ -1,19 +1,39 @@
 var	express = require('express'),
 	app = express(),
-	handlebars = require('handlebars'),
+	path = require('path'),
 	morgan = require('morgan'),
-	routes = require('./routes/');
+	bodyparser = require('body-parser');
+	
+var routes = require('./routes/'),
+	matchRoutes = require('./routes/match');
 
 var PORT_NUMBER = 3000;
 var SERVER_URL = "localhost";
 
-app.engine('html', handlebars.compile);
-app.set('views engine', 'html');
-app.set('views', __dirname + '/views');
-
 app.use(morgan('dev'));
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname,'/bower_components')));
+
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded());
+
+app.get("/", function(req, res){
+	res.sendFile(path.join(__dirname,'/index.html'));
+});
+
 app.use('/', routes);
+app.use('/match', matchRoutes);
+
+app.use(function (req, res, next) {
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+
+app.use(function (err, req, res, next) {
+	err.status = err.status || 500;
+	res.json(err);
+});
 
 app.listen(PORT_NUMBER);
 console.log('Server is listening at ' + SERVER_URL + ':' + PORT_NUMBER + '...');

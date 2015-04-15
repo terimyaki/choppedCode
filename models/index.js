@@ -1,4 +1,6 @@
-var mongoose = require('mongoose');
+var Promise = require('bluebird');
+var mongoose = Promise.promisifyAll(require('mongoose'));
+
 mongoose.connect('mongodb://localhost/choppedCode');
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 
@@ -29,6 +31,7 @@ var matchSchema = new Schema({
 	name : {type: String, required: true},
 	dateCreated: {type: Date, default: Date.now},
 	dateEnded: {type: Date, required: true},
+	theme: {name: String, description: String},
 	apiCriteria : [{type: Schema.Types.ObjectId, ref: 'Api'}],
 	libraryCriteria : [{type: Schema.Types.ObjectId, ref: 'Library'}],
 	judges : [{type: Schema.Types.ObjectId, ref: 'User'}],
@@ -53,6 +56,42 @@ var submissionSchema = new Schema({
 		favs: Number
 	}
 });
+
+apiSchema.statics.findRandom = function(callback){
+	var self = this;
+	return this.find().count().then(function(count){
+		return Math.floor(Math.random() * count);
+	})
+	.then(function(random){
+		return self.find()
+					.skip(random)
+					.limit(-1)
+					.then(function(data){
+						return data[0];
+					});
+	})
+	.catch(function(err){
+		throw new Error(err);
+	});
+};
+
+librarySchema.statics.findRandom = function(callback){
+	var self = this;
+	return this.find().count().then(function(count){
+		return Math.floor(Math.random() * count);
+	})
+	.then(function(random){
+		return self.find()
+				.skip(random)
+				.limit(-1)
+				.then(function(data){
+					return data[0];
+				});
+	})
+	.catch(function(err){
+		throw new Error(err);
+	});
+};
 
 var api = mongoose.model('Api', apiSchema);
 var library = mongoose.model('Library', librarySchema);
