@@ -9,13 +9,21 @@ app.config(function($stateProvider, $urlRouterProvider){ //config with UI Router
 
 	$stateProvider
 		.state('random', {
-			url: '/',
-			templateUrl: '/templates/showRandom.html',
+			url : '/',
+			abstract: true,
+			templateUrl: '/templates/showRandom.html'
+		})
+		.state('random.search', {
+			url : '',
+			templateUrl: '/templates/partials/randomizeMatchBox.html',
 			controller: 'RandomMatchController'
 		})
-		.state('random.results', {
-			templateUrl:'/templates/partials/randomMatchResults.html',
-			controller: 'ConfirmMatchController'
+		.state('random.search.results', {
+			templateUrl:'/templates/partials/randomMatchResults.html'
+		})
+		.state('random.create',{
+			templateUrl: '/templates/partials/createMatch.html',
+			controller: 'CreateMatchController'
 		});
 
 });

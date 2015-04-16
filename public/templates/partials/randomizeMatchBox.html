@@ -1,0 +1,19 @@
+<div class="row">
+	<form class="col s12" ng-submit='generateMatch()'>
+		<div class="row">
+			<div class="input-field col s6">
+				<input type="number" ng-model="requirements" min='0' max='8'required>
+				<label>Enter Basket Size</label>
+			</div>
+			<div class="input-field col s6">
+				<select style="display:block;" ng-model="themeType" ng-options="option for option in themeOptions" required>
+				</select>
+			</div>
+		</div>
+		<div class="row center-align">
+			<button type='submit' class='btn'>Generate Random Basket</button>
+		</div>
+	</form>
+</div>
+<div ui-view>
+</div>

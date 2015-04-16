@@ -1,12 +1,12 @@
-app.factory('MatchFactory', function($http){
+app.factory('MatchFactory', function($http, $rootScope){
 	var theme = null;
 	var criterias = [];
 
-	var setFactors = function(theme, criterias){
-		theme = theme;
-		criterias = criterias;
-	};
-	
+	$rootScope.$on('factorsChange', function(err, data){
+		theme = data.theme;
+		criterias = data.criterias;
+	});
+
 	var getMatch = function(){
 		return $http.get('/match').then(function(response){
 			return response.data;
@@ -16,6 +16,7 @@ app.factory('MatchFactory', function($http){
 	};
 
 	var createMatch = function(matchObj){
+
 		return $http.post('/match', matchObj).then(function(response){
 			return response.data;
 		}).catch(function(err){
@@ -24,7 +25,6 @@ app.factory('MatchFactory', function($http){
 	};
 
 	return {
-		setFactors : setFactors,
 		getMatch : getMatch,
 		createMatch : createMatch
 	};

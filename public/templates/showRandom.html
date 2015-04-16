@@ -1,26 +1,5 @@
-<div class="container">
-	<div class="row">
-		<form class="col s12" ng-submit='generateMatch()'>
-			<div class="row">
-				<div class="input-field col s6">
-					<input type="number" ng-model="requirements"required>
-					<label>Choose your Basket Size</label>
-				</div>
-				<div class="input-field col s6">
-					<select style="display:block;" ng-model="themeType" ng-options="option for option in themeOptions" required>
-					</select>
-				</div>
-			</div>
-			<div class="row center-align">
-				<button type='submit' class='btn'>Generate a Random Competition</button>
-			</div>
-		</form>
-	</div>
-	<div id='loaderModal' class='modal'>
-		<div class='modal-content'>
-			<loader>Haha...Keep waiting...</loader>
-		</div>
-	</div>
-	<div ui-view>
-	</div>
+<div class='center-align'>
+	<h5>Generate Random Match</h5>
+</div>
+<div ui-view>
 </div>

@@ -1,4 +1,4 @@
-app.controller('RandomMatchController', function($scope, $q, $state, DataFactory, MatchFactory){
+app.controller('RandomMatchController', function($scope, $q, $state, $rootScope, DataFactory, MatchFactory){
 	$scope.themeType = 'Random Reddit Theme';
 	$scope.requirements = null;
 	$scope.criterias = [];
@@ -45,12 +45,15 @@ app.controller('RandomMatchController', function($scope, $q, $state, DataFactory
 				$scope.criterias = data[0];
 			}
 
-			$state.go('random.results');
+			$scope.$emit('factorsChange', {
+				theme : $scope.theme,
+				criterias : $scope.criterias
+			});
+
+			$state.go('random.search.results');
 			$('#loaderModal').closeModal();
-		})
-		.catch(function(err){
+		}).catch(function(err){
 			throw new Error(err);
 		});
 	};
-
 });

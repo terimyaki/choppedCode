@@ -30,6 +30,7 @@ var librarySchema = new Schema({
 var matchSchema = new Schema({
 	name : {type: String, required: true},
 	dateCreated: {type: Date, default: Date.now},
+	dateStart: {type:Date},
 	dateEnded: {type: Date, required: true},
 	theme: {name: String, description: String},
 	apiCriteria : [{type: Schema.Types.ObjectId, ref: 'Api'}],

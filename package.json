@@ -27,5 +27,10 @@
     "request": "^2.51.0",
     "underscore-contrib": "^0.3.0"
   },
-  "devDependencies": {}
+  "engines": {
+    "node": "0.12.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11"
+  }
 }

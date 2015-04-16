@@ -10,6 +10,8 @@ var routes = require('./routes/'),
 var PORT_NUMBER = 3000;
 var SERVER_URL = "localhost";
 
+app.set('port', (process.env.PORT || PORT_NUMBER));
+
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname,'/bower_components')));
@@ -35,5 +37,6 @@ app.use(function (err, req, res, next) {
 	res.json(err);
 });
 
-app.listen(PORT_NUMBER);
-console.log('Server is listening at ' + SERVER_URL + ':' + PORT_NUMBER + '...');
+app.listen(app.get('port'), function(){
+	console.log('Server is listening at ' + SERVER_URL + ':' + app.get('port') + '...');
+});
