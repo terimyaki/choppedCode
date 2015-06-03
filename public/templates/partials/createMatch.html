@@ -1,5 +1,5 @@
 <div class='row'>
-	<form class='col s12'>
+	<form class='col s12' ng-submit='submitMatch()'>
 		<div class='row'>
 			<div class='input-field col s12'>
 				<input type='text' ng-model='name'required>
@@ -9,19 +9,34 @@
 		<div class='row'>
 		</div>
 		<div class='row'>
-			<div class='input-field col s6'>
-				<label>Start Date</label>
-				<input type='date' class='datepicker startDate' required></input>
+			<div class='col s6'>
+				<div class='row'>
+					<div class='input-field col s3'>
+						<label>Start Date :</label>
+					</div>
+					<div class='input-field col s9'>
+						<input type='date' class='datepicker' ng-model='dateStart' required></input>
+					</div>
+				</div>
 			</div>
-			<div class='input-field col s6'>
-				<label>End Date</label>
-				<input type='date' class='datepicker dueDate'></input>
+			
+			<div class='col s6'>
+				<div class='row'>
+					<div class='input-field col s3'>
+						<label>End Date : </label>
+					</div>
+					<div class='input-field col s9'>
+						<input type='date' class='datepicker' ng-model='dateEnded'></input>
+					</div>
+				</div>
 			</div>
+
 		</div>
 		<div class='row'>
 			<div class='input-field col s12'>
 				<textarea class="materialize-textarea" ng-model='description'>
 				</textarea>
+				<label>Description</label>
 			</div>
 		</div>
 		<div class='row center-align'>

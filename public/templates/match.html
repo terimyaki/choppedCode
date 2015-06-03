@@ -1,0 +1,36 @@
+<div class='row valign-wrapper'>
+	<h3 class='left left-align col s8'>{{match.name}}</h3>
+	<div class='right col s4 valign'>
+		<button class='btn red' ng-click='deleteMatch()'><i class='medium mdi-action-delete'></i></button>
+		<button class='btn orange'><i class='medium mdi-editor-mode-edit'></i></button>
+	</div>
+</div>
+<div class='row'>
+	<p>{{match.description}}</p>
+</div>
+<div class='row'>
+	<p><strong>Start Date : </strong>{{match.dateStart | date: MM-dd-yyyy}}</p>
+	<p><strong>End Date : </strong>{{match.dateEnded | date: MM-dd-yyyy}}</p>
+</div>
+
+<div class='divider'></div>
+<div class='section'>
+	<h5>Main Theme</h5>
+	<theme theme='match.theme'></theme>
+</div>
+<div class='divider'></div>
+<div class='section' ng-if='match.libraryCriteria.length > 0'>
+	<h5>Libraries</h5>
+	<div ng-repeat='library in match.libraryCriteria'>
+		<criteria criteria='library'></criteria>
+	</div>
+</div>
+<div class='section' ng-if='match.apiCriteria.length > 0'>
+	<h5>Apis</h5>
+	<div ng-repeat='api in match.apiCriteria'>
+		<criteria criteria='api'></criteria>
+	</div>
+</div>
+
+
+

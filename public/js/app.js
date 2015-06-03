@@ -4,8 +4,8 @@ var app = angular.module('ChoppedCode', ['ui.router']);
 // 	$locationProvider.html5Mode(true);
 // });
 
-app.config(function($stateProvider, $urlRouterProvider){ //config with UI Router providers
-	$urlRouterProvider.otherwise('/');
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider){ //config with UI Router providers
+	// $locationProvider.html5Mode(true);
 
 	$stateProvider
 		.state('random', {
@@ -24,6 +24,19 @@ app.config(function($stateProvider, $urlRouterProvider){ //config with UI Router
 		.state('random.create',{
 			templateUrl: '/templates/partials/createMatch.html',
 			controller: 'CreateMatchController'
+		})
+		.state('match', {
+			url : 'match/:id',
+			templateUrl : '/templates/match.html',
+			controller: 'MatchController',
+			resolve: {
+				matchDataResolve : function(MatchFactory, $stateParams){
+					$('#loaderModal').openModal();
+					return MatchFactory.getMatch($stateParams.id);
+				}
+			}
 		});
+
+	$urlRouterProvider.otherwise('/');
 
 });

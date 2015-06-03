@@ -29,14 +29,15 @@ var librarySchema = new Schema({
 
 var matchSchema = new Schema({
 	name : {type: String, required: true},
+	description :{type:String, required:true},
 	dateCreated: {type: Date, default: Date.now},
 	dateStart: {type:Date},
 	dateEnded: {type: Date, required: true},
-	theme: {name: String, description: String},
+	theme: Object,
 	apiCriteria : [{type: Schema.Types.ObjectId, ref: 'Api'}],
 	libraryCriteria : [{type: Schema.Types.ObjectId, ref: 'Library'}],
 	judges : [{type: Schema.Types.ObjectId, ref: 'User'}],
-	participants : [{type: Schema.Types.ObjectId, ref: 'User', required: true}],
+	participants : [{type: Schema.Types.ObjectId, ref: 'User'}],
 	submissions: [{type: Schema.Types.ObjectId, ref: 'Submission'}],
 	winner : [{type: Schema.Types.ObjectId, ref: 'User'}]
 });

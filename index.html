@@ -10,9 +10,9 @@
 		<div class="navbar-fixed">
 			<nav>
 				<div class="nav-wrapper teal">
-					<a href="#" class="brand-logo">Chopped Code</a>
+					<a ui-sref='random.search' class="brand-logo">Chopped Code</a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
-						<li><a class="" ui-sref="random">Random</a></li>
+						<li><a class="active" ui-sref="random.search">Random</a></li>
 						<li><a class="">Created</a></li>
 					</ul>
 				</div>
@@ -36,9 +36,12 @@
 		<script src="/js/controllers/MainController.js"></script>
 		<script src="/js/controllers/RandomMatchController.js"></script>
 		<script src="/js/controllers/CreateMatchController.js"></script>
+		<script src="/js/controllers/MatchController.js"></script>
 		<script src="/js/factories/DataFactory.js"></script>
 		<script src="/js/factories/MatchFactory.js"></script>
 		<script src="/js/directives/loader/loader.js"></script>
+		<script src="/js/directives/theme/theme.js"></script>
+		<script src="/js/directives/criteria/criteria.js"></script>
 		<script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
 		<script src="materialize/dist/js/materialize.min.js"></script>
 	</body>
